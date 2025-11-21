@@ -520,244 +520,306 @@ export default function Home() {
   };
 
   return (
-    <div
-      className="min-h-screen bg-gradient-to-b from-slate-950 via-slate-950/95 to-slate-950 text-slate-100 relative overflow-hidden"
-      style={{
-        fontFamily:
-          'system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text", sans-serif',
-      }}
-    >
-      {/* subtle ocean / horizon gradient overlay */}
-      <div className="pointer-events-none absolute inset-0 opacity-60">
-        <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-cyan-900/40 via-slate-900/40 to-transparent" />
-        <div className="absolute inset-x-0 top-0 h-1/3 bg-gradient-to-b from-slate-900/80 via-slate-900/10 to-transparent" />
-      </div>
+    <>
+      {/* Global animation styling */}
+      <style jsx global>{`
+        @keyframes orbFloat {
+          0% {
+            transform: translate(-50%, -8px);
+          }
+          50% {
+            transform: translate(-50%, 4px);
+          }
+          100% {
+            transform: translate(-50%, -8px);
+          }
+        }
+        @keyframes oceanWave {
+          0% {
+            transform: translateX(0);
+          }
+          50% {
+            transform: translateX(-12px);
+          }
+          100% {
+            transform: translateX(0);
+          }
+        }
+        @keyframes messageDriftIn {
+          0% {
+            opacity: 0;
+            transform: translateY(6px);
+          }
+          100% {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+        @keyframes pageFadeIn {
+          0% {
+            opacity: 0;
+            transform: translateY(8px);
+          }
+          100% {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+        .orb-glow {
+          animation: orbFloat 16s ease-in-out infinite;
+        }
+        .ocean-wave-layer {
+          animation: oceanWave 18s ease-in-out infinite;
+        }
+        .message-bubble {
+          animation: messageDriftIn 0.5s ease-out;
+        }
+        .page-fade-in {
+          animation: pageFadeIn 0.9s ease-out;
+        }
+      `}</style>
 
-      {/* floating orb */}
-      <div className="pointer-events-none absolute -top-24 left-1/2 h-64 w-64 -translate-x-1/2 rounded-full bg-[radial-gradient(circle_at_30%_20%,#e0fbff,rgba(134,239,172,0.9),rgba(45,212,191,0.1),transparent)] blur-3xl opacity-70" />
+      <div
+        className="page-fade-in min-h-screen bg-gradient-to-b from-slate-950 via-slate-950/95 to-slate-950 text-slate-100 relative overflow-hidden"
+        style={{
+          fontFamily:
+            'system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text", sans-serif',
+        }}
+      >
+        {/* subtle ocean / horizon gradient overlay */}
+        <div className="pointer-events-none absolute inset-0 opacity-60">
+          <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-cyan-900/40 via-slate-900/40 to-transparent" />
+          <div className="absolute inset-x-0 top-0 h-1/3 bg-gradient-to-b from-slate-900/80 via-slate-900/10 to-transparent" />
+          {/* shimmering ocean wave band */}
+          <div className="ocean-wave-layer absolute inset-x-[-10%] bottom-0 h-24 bg-gradient-to-t from-cyan-500/25 via-cyan-300/10 to-transparent blur-2xl" />
+        </div>
 
-      <div className="relative z-10 mx-auto flex min-h-screen max-w-4xl flex-col px-4 py-8">
-        <header className="mb-4 flex items-center justify-between gap-4 rounded-3xl border border-cyan-400/20 bg-slate-900/60 px-5 py-4 shadow-[0_18px_45px_rgba(0,0,0,0.8)] backdrop-blur-xl">
-          <div className="flex items-center gap-4">
-            <div className="h-10 w-10 rounded-full bg-[radial-gradient(circle_at_30%_20%,#a5f3fc,#22d3ee,#0f172a)] shadow-[0_0_25px_rgba(34,211,238,0.6)] animate-pulse" />
-            <div>
-              <h1 className="text-xs font-semibold uppercase tracking-[0.25em] text-slate-300">
-                Lingering Orb
-              </h1>
-              <p className="mt-1 text-sm text-slate-400">
-                The mind of a distant orb, hovering above the Pacific at Big Sur.
-              </p>
+        {/* floating orb */}
+        <div className="pointer-events-none absolute -top-24 left-1/2 h-64 w-64 -translate-x-1/2 rounded-full bg-[radial-gradient(circle_at_30%_20%,#e0fbff,rgba(134,239,172,0.9),rgba(45,212,191,0.1),transparent)] blur-3xl opacity-70 orb-glow" />
+
+        <div className="relative z-10 mx-auto flex min-h-screen max-w-4xl flex-col px-4 py-8">
+          <header className="mb-4 flex items-center justify-between gap-4 rounded-3xl border border-cyan-400/20 bg-slate-900/60 px-5 py-4 shadow-[0_18px_45px_rgba(0,0,0,0.8)] backdrop-blur-xl">
+            <div className="flex items-center gap-4">
+              <div className="h-10 w-10 rounded-full bg-[radial-gradient(circle_at_30%_20%,#a5f3fc,#22d3ee,#0f172a)] shadow-[0_0_25px_rgba(34,211,238,0.6)]" />
+              <div>
+                <h1 className="text-xs font-semibold uppercase tracking-[0.25em] text-slate-300">
+                  Lingering Orb
+                </h1>
+                <p className="mt-1 text-sm text-slate-400">
+                  The mind of a distant orb, hovering above the Pacific at Big Sur.
+                </p>
+              </div>
             </div>
-          </div>
 
-          <div className="flex items-center space-x-3">
-            <label
-              className={`flex items-center space-x-2 ${
-                isSpeaking ? 'cursor-not-allowed opacity-40' : 'cursor-pointer'
-              }`}
-            >
-              <span className="text-[0.65rem] font-medium uppercase tracking-[0.2em] text-slate-400">
-                Continuous Listen
-              </span>
-              <button
-                onClick={async () => {
-                  if (isSpeaking) return;
-                  const newValue = !continuousListening;
-                  if (newValue) {
-                    try {
-                      await navigator.mediaDevices.getUserMedia({ audio: true });
-                      console.log('Microphone permission granted');
-                      setContinuousListening(true);
-                      startSpeechRecognition();
-                    } catch (error) {
-                      console.error('Microphone permission denied:', error);
-                      alert(
-                        'Please allow microphone access to use speech recognition',
-                      );
-                    }
-                  } else {
-                    setContinuousListening(false);
-                    stopSpeechRecognition();
-                    setInput('');
-                  }
-                }}
-                disabled={isSpeaking}
-                className={`rounded-full border border-cyan-400/40 px-3 py-1 text-[0.65rem] font-semibold uppercase tracking-[0.2em] transition-colors ${
-                  continuousListening
-                    ? 'bg-cyan-400/90 text-slate-950 shadow-[0_0_20px_rgba(34,211,238,0.7)]'
-                    : 'bg-slate-900/80 text-slate-200 hover:bg-slate-800/80'
-                } ${isSpeaking ? 'opacity-40 cursor-not-allowed' : ''}`}
+            <div className="flex items-center space-x-3">
+              <label
+                className={`flex items-center space-x-2 ${
+                  isSpeaking ? 'cursor-not-allowed opacity-40' : 'cursor-pointer'
+                }`}
               >
-                {continuousListening ? 'On' : 'Off'}
-              </button>
-            </label>
-            {isListening && !isSpeaking && (
-              <span className="flex items-center space-x-1 rounded-full border border-cyan-400/50 bg-slate-900/80 px-2 py-1 text-[0.65rem] font-medium uppercase tracking-[0.2em] text-cyan-200">
-                <Mic size={12} className="animate-pulse" />
-                <span>Listening</span>
-              </span>
-            )}
-            {isSpeaking && (
-              <span className="flex items-center space-x-1 rounded-full border border-emerald-400/60 bg-emerald-500/80 px-2 py-1 text-[0.65rem] font-semibold uppercase tracking-[0.2em] text-slate-950 shadow-[0_0_22px_rgba(74,222,128,0.7)]">
-                <Volume2 size={12} className="animate-pulse" />
-                <span>Speaking</span>
-              </span>
-            )}
-            {continuousListening && !isListening && !isSpeaking && (
-              <span className="rounded-full border border-slate-600/70 bg-slate-900/80 px-2 py-1 text-[0.65rem] font-medium uppercase tracking-[0.2em] text-slate-400">
-                Paused
-              </span>
-            )}
-          </div>
-        </header>
-
-        <main className="flex-1 rounded-3xl border border-slate-800/80 bg-slate-950/70 shadow-[0_20px_60px_rgba(0,0,0,0.85)] backdrop-blur-2xl">
-          <div className="flex h-[640px] flex-col">
-            <div className="flex-1 space-y-4 overflow-y-auto px-4 pb-4 pt-4">
-              {messages.slice(1).map((message) => (
-                <div
-                  key={message.id}
-                  className={`flex items-start space-x-3 ${
-                    message.role === 'user'
-                      ? 'justify-end'
-                      : 'justify-start'
-                  }`}
+                <span className="text-[0.65rem] font-medium uppercase tracking-[0.2em] text-slate-400">
+                  Continuous Listen
+                </span>
+                <button
+                  onClick={async () => {
+                    if (isSpeaking) return;
+                    const newValue = !continuousListening;
+                    if (newValue) {
+                      try {
+                        await navigator.mediaDevices.getUserMedia({ audio: true });
+                        console.log('Microphone permission granted');
+                        setContinuousListening(true);
+                        startSpeechRecognition();
+                      } catch (error) {
+                        console.error('Microphone permission denied:', error);
+                        alert(
+                          'Please allow microphone access to use speech recognition',
+                        );
+                      }
+                    } else {
+                      setContinuousListening(false);
+                      stopSpeechRecognition();
+                      setInput('');
+                    }
+                  }}
+                  disabled={isSpeaking}
+                  className={`rounded-full border border-cyan-400/40 px-3 py-1 text-[0.65rem] font-semibold uppercase tracking-[0.2em] transition-colors ${
+                    continuousListening
+                      ? 'bg-cyan-400/90 text-slate-950 shadow-[0_0_20px_rgba(34,211,238,0.7)]'
+                      : 'bg-slate-900/80 text-slate-200 hover:bg-slate-800/80'
+                  } ${isSpeaking ? 'opacity-40 cursor-not-allowed' : ''}`}
                 >
-                  {message.role === 'assistant' && (
-                    <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full border border-cyan-400/60 bg-slate-900/80 shadow-[0_0_18px_rgba(34,211,238,0.4)]">
-                      <Bot size={16} className="text-cyan-200" />
-                    </div>
-                  )}
+                  {continuousListening ? 'On' : 'Off'}
+                </button>
+              </label>
+              {isListening && !isSpeaking && (
+                <span className="flex items-center space-x-1 rounded-full border border-cyan-400/50 bg-slate-900/80 px-2 py-1 text-[0.65rem] font-medium uppercase tracking-[0.2em] text-cyan-200">
+                  <Mic size={12} className="animate-pulse" />
+                  <span>Listening</span>
+                </span>
+              )}
+              {isSpeaking && (
+                <span className="flex items-center space-x-1 rounded-full border border-emerald-400/60 bg-emerald-500/80 px-2 py-1 text-[0.65rem] font-semibold uppercase tracking-[0.2em] text-slate-950 shadow-[0_0_22px_rgba(74,222,128,0.7)]">
+                  <Volume2 size={12} className="animate-pulse" />
+                  <span>Speaking</span>
+                </span>
+              )}
+              {continuousListening && !isListening && !isSpeaking && (
+                <span className="rounded-full border border-slate-600/70 bg-slate-900/80 px-2 py-1 text-[0.65rem] font-medium uppercase tracking-[0.2em] text-slate-400">
+                  Paused
+                </span>
+              )}
+            </div>
+          </header>
 
+          <main className="flex-1 rounded-3xl border border-slate-800/80 bg-slate-950/70 shadow-[0_20px_60px_rgba(0,0,0,0.85)] backdrop-blur-2xl">
+            <div className="flex h-[640px] flex-col">
+              <div className="flex-1 space-y-4 overflow-y-auto px-4 pb-4 pt-4">
+                {messages.slice(1).map((message) => (
                   <div
-                    className={`flex max-w-[72%] flex-col ${
-                      message.role === 'user' ? 'items-end' : 'items-start'
+                    key={message.id}
+                    className={`message-bubble flex items-start space-x-3 ${
+                      message.role === 'user'
+                        ? 'justify-end'
+                        : 'justify-start'
                     }`}
                   >
+                    {message.role === 'assistant' && (
+                      <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full border border-cyan-400/60 bg-slate-900/80 shadow-[0_0_18px_rgba(34,211,238,0.4)]">
+                        <Bot size={16} className="text-cyan-200" />
+                      </div>
+                    )}
+
                     <div
-                      className={`rounded-2xl border px-3 py-2 text-sm leading-relaxed shadow-md ${
-                        message.role === 'user'
-                          ? 'border-violet-500/40 bg-violet-500/20 text-violet-50'
-                          : 'border-cyan-400/30 bg-slate-900/80 text-slate-100'
+                      className={`flex max-w-[72%] flex-col ${
+                        message.role === 'user' ? 'items-end' : 'items-start'
                       }`}
                     >
-                      <p className="whitespace-pre-wrap">
-                        {message.content}
-                      </p>
-                    </div>
-
-                    {message.role === 'assistant' && (
-                      <button
-                        onClick={() => speakText(message.content)}
-                        className="mt-1 inline-flex items-center space-x-1 rounded-full border border-cyan-400/40 bg-slate-900/80 px-2 py-1 text-[0.65rem] font-medium uppercase tracking-[0.2em] text-cyan-100 transition hover:bg-slate-800/80"
-                        aria-label="Text to speech"
+                      <div
+                        className={`rounded-2xl border px-3 py-2 text-sm leading-relaxed shadow-md ${
+                          message.role === 'user'
+                            ? 'border-violet-500/40 bg-violet-500/20 text-violet-50'
+                            : 'border-cyan-400/30 bg-slate-900/80 text-slate-100'
+                        }`}
                       >
-                        <Volume2 size={11} />
-                        <span>Echo</span>
-                      </button>
-                    )}
+                        <p className="whitespace-pre-wrap">
+                          {message.content}
+                        </p>
+                      </div>
 
-                    {message.timestamp && (
-                      <span className="mt-1 text-[0.65rem] uppercase tracking-[0.2em] text-slate-500">
-                        {new Date(message.timestamp).toLocaleTimeString()}
-                      </span>
-                    )}
-                  </div>
+                      {message.role === 'assistant' && (
+                        <button
+                          onClick={() => speakText(message.content)}
+                          className="mt-1 inline-flex items-center space-x-1 rounded-full border border-cyan-400/40 bg-slate-900/80 px-2 py-1 text-[0.65rem] font-medium uppercase tracking-[0.2em] text-cyan-100 transition hover:bg-slate-800/80"
+                          aria-label="Text to speech"
+                        >
+                          <Volume2 size={11} />
+                          <span>Echo</span>
+                        </button>
+                      )}
 
-                  {message.role === 'user' && (
-                    <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full border border-violet-400/50 bg-slate-900/80">
-                      <User size={16} className="text-violet-200" />
+                      {message.timestamp && (
+                        <span className="mt-1 text-[0.65rem] uppercase tracking-[0.2em] text-slate-500">
+                          {new Date(message.timestamp).toLocaleTimeString()}
+                        </span>
+                      )}
                     </div>
-                  )}
-                </div>
-              ))}
 
-              {isLoading && (
-                <div className="flex items-center space-x-3">
-                  <div className="flex h-8 w-8 items-center justify-center rounded-full border border-cyan-400/60 bg-slate-900/80">
-                    <Bot size={16} className="text-cyan-200" />
+                    {message.role === 'user' && (
+                      <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full border border-violet-400/50 bg-slate-900/80">
+                        <User size={16} className="text-violet-200" />
+                      </div>
+                    )}
                   </div>
-                  <div className="rounded-2xl border border-cyan-400/30 bg-slate-900/80 px-3 py-2">
-                    <div className="flex space-x-1">
-                      <div
-                        className="h-2 w-2 rounded-full bg-cyan-300 animate-bounce"
-                        style={{ animationDelay: '0ms' }}
-                      ></div>
-                      <div
-                        className="h-2 w-2 rounded-full bg-cyan-300 animate-bounce"
-                        style={{ animationDelay: '150ms' }}
-                      ></div>
-                      <div
-                        className="h-2 w-2 rounded-full bg-cyan-300 animate-bounce"
-                        style={{ animationDelay: '300ms' }}
-                      ></div>
+                ))}
+
+                {isLoading && (
+                  <div className="flex items-center space-x-3">
+                    <div className="flex h-8 w-8 items-center justify-center rounded-full border border-cyan-400/60 bg-slate-900/80">
+                      <Bot size={16} className="text-cyan-200" />
+                    </div>
+                    <div className="rounded-2xl border border-cyan-400/30 bg-slate-900/80 px-3 py-2">
+                      <div className="flex space-x-1">
+                        <div
+                          className="h-2 w-2 rounded-full bg-cyan-300 animate-bounce"
+                          style={{ animationDelay: '0ms' }}
+                        ></div>
+                        <div
+                          className="h-2 w-2 rounded-full bg-cyan-300 animate-bounce"
+                          style={{ animationDelay: '150ms' }}
+                        ></div>
+                        <div
+                          className="h-2 w-2 rounded-full bg-cyan-300 animate-bounce"
+                          style={{ animationDelay: '300ms' }}
+                        ></div>
+                      </div>
                     </div>
                   </div>
-                </div>
-              )}
-              <div ref={messagesEndRef} />
-            </div>
+                )}
+                <div ref={messagesEndRef} />
+              </div>
 
-            <div className="border-t border-slate-800/80 bg-slate-950/80 px-4 py-3 backdrop-blur-xl">
-              <form
-                onSubmit={handleSubmit}
-                className="flex items-center space-x-2"
-              >
-                <input
-                  type="text"
-                  value={input}
-                  onChange={(e) => setInput(e.target.value)}
-                  placeholder={
-                    isListening
-                      ? '>>> the orb is listening to the waves in your voice'
-                      : 'Let a question drift in…'
-                  }
-                  className={`flex-1 rounded-full border px-4 py-2 text-sm outline-none transition-all placeholder:text-slate-500 ${
-                    isListening
-                      ? 'border-cyan-400/70 bg-slate-950 text-cyan-50 placeholder:text-cyan-200/70 font-mono'
-                      : 'border-slate-700 bg-slate-900/80 text-slate-100 focus:border-cyan-400/80'
-                  }`}
-                  style={{
-                    fontFamily: isListening
-                      ? 'ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace'
-                      : undefined,
-                  }}
-                  disabled={isLoading}
-                  readOnly={isListening}
-                />
-                <button
-                  type="button"
-                  onClick={isRecording ? stopRecording : startRecording}
-                  className={`flex h-10 w-10 items-center justify-center rounded-full border text-slate-100 transition-colors ${
-                    isRecording
-                      ? 'border-rose-400/70 bg-rose-500/80 animate-pulse'
-                      : 'border-slate-700 bg-slate-900/80 hover:border-cyan-400/70 hover:bg-slate-900'
-                  }`}
-                  disabled={isLoading || continuousListening}
-                  title={
-                    continuousListening
-                      ? 'Mic is auto-managed in continuous mode'
-                      : 'Hold a fragment of sound'
-                  }
+              <div className="border-t border-slate-800/80 bg-slate-950/80 px-4 py-3 backdrop-blur-xl">
+                <form
+                  onSubmit={handleSubmit}
+                  className="flex items-center space-x-2"
                 >
-                  {isRecording ? <Square size={18} /> : <Mic size={18} />}
-                </button>
-                <button
-                  type="submit"
-                  className="flex h-10 w-10 items-center justify-center rounded-full border border-cyan-400/70 bg-cyan-400/90 text-slate-950 shadow-[0_0_22px_rgba(34,211,238,0.7)] transition hover:bg-cyan-300 disabled:cursor-not-allowed disabled:border-slate-700 disabled:bg-slate-800 disabled:text-slate-500 disabled:shadow-none"
-                  disabled={!input.trim() || isLoading}
-                >
-                  <Send size={18} />
-                </button>
-              </form>
+                  <input
+                    type="text"
+                    value={input}
+                    onChange={(e) => setInput(e.target.value)}
+                    placeholder={
+                      isListening
+                        ? '>>> the orb is listening to the waves in your voice'
+                        : 'Let a question drift in…'
+                    }
+                    className={`flex-1 rounded-full border px-4 py-2 text-sm outline-none transition-all placeholder:text-slate-500 ${
+                      isListening
+                        ? 'border-cyan-400/70 bg-slate-950 text-cyan-50 placeholder:text-cyan-200/70 font-mono'
+                        : 'border-slate-700 bg-slate-900/80 text-slate-100 focus:border-cyan-400/80'
+                    }`}
+                    style={{
+                      fontFamily: isListening
+                        ? 'ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace'
+                        : undefined,
+                    }}
+                    disabled={isLoading}
+                    readOnly={isListening}
+                  />
+                  <button
+                    type="button"
+                    onClick={isRecording ? stopRecording : startRecording}
+                    className={`flex h-10 w-10 items-center justify-center rounded-full border text-slate-100 transition-colors ${
+                      isRecording
+                        ? 'border-rose-400/70 bg-rose-500/80 animate-pulse'
+                        : 'border-slate-700 bg-slate-900/80 hover:border-cyan-400/70 hover:bg-slate-900'
+                    }`}
+                    disabled={isLoading || continuousListening}
+                    title={
+                      continuousListening
+                        ? 'Mic is auto-managed in continuous mode'
+                        : 'Hold a fragment of sound'
+                    }
+                  >
+                    {isRecording ? <Square size={18} /> : <Mic size={18} />}
+                  </button>
+                  <button
+                    type="submit"
+                    className="flex h-10 w-10 items-center justify-center rounded-full border border-cyan-400/70 bg-cyan-400/90 text-slate-950 shadow-[0_0_22px_rgba(34,211,238,0.7)] transition hover:bg-cyan-300 disabled:cursor-not-allowed disabled:border-slate-700 disabled:bg-slate-800 disabled:text-slate-500 disabled:shadow-none"
+                    disabled={!input.trim() || isLoading}
+                  >
+                    <Send size={18} />
+                  </button>
+                </form>
+              </div>
             </div>
-          </div>
-        </main>
+          </main>
 
-        <footer className="mt-4 text-center text-[0.7rem] uppercase tracking-[0.25em] text-slate-500">
-          Somewhere above the Big Sur coastline, an orb drifts and listens.
-        </footer>
+          <footer className="mt-4 text-center text-[0.7rem] uppercase tracking-[0.25em] text-slate-500">
+            Somewhere above the Big Sur coastline, an orb drifts and listens.
+          </footer>
+        </div>
       </div>
-    </div>
+    </>
   );
 }
