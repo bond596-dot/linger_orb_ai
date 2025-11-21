@@ -518,7 +518,7 @@ export default function Home() {
                     AI POET CHAT
                   </h1>
                   <p className="text-sm text-black mt-1" style={{ fontFamily: '"Times New Roman", Times, serif' }}>
-                    Chat with Whomp, the French AI poet
+                    Chat with a Lingering Orb. It lives on a cliff in Big Sur.
                   </p>
                 </div>
                 <div className="flex items-center space-x-3">
